@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
         <img class="post-picture" :src="post.img" :alt="post.creatorId">
-        <p class="fs-4 p-3">{{ post.body }}</p>
+        <p class="fs-4 p-3 pt-0">{{ post.body }}</p>
         <router-link :to="{ name: 'Profile', params: { profileId: post.creator.id } }">
             <div class="text-center">
                 <img class="profile-picture me-2" :src="post.creator.picture" alt="">
@@ -34,8 +34,8 @@ export default {
 }
 
 .post-picture {
-    height: 500px;
-    max-width: 500px;
+    height: 750px;
+    max-width: 750px;
     width: 100%;
     object-fit: contain;
     object-position: center;

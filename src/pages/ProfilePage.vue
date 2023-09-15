@@ -20,7 +20,7 @@
             </div>
             <div v-if="profile.resume" class="col-3 text-center">
                 <a target="_blank" :href="profile.resume">
-                    <i class="mdi mdi-file-account"></i>
+                    <i class="mdi mdi-file-account fs-1"></i>
                     <h5>Resume</h5>
                 </a>
             </div>
