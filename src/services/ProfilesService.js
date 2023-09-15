@@ -14,6 +14,7 @@ class ProfilesService {
     async searchProfiles(searchTerm) {
         const res = await api.get(`/api/profiles?query=${searchTerm}`)
         logger.log('fetched profiles ✅', res.data)
+        AppState.searchResults = res.data.map(profile => new Profile(profile))
     }
 }
 
