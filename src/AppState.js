@@ -16,4 +16,6 @@ export const AppState = reactive({
 
   /**@type {Profile[]} */
   searchResults: []
+
+  //REVIEW begin setting up next/prev pages- check tues fireside
 })
