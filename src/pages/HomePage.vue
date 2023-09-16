@@ -1,7 +1,7 @@
 <template>
   <section class="container-fluid">
-    <div class="row p-1">
-      <div class="col-12 p-3 mb-3 bg-dark card" v-for="post in posts" :key="post.id">
+    <div class="row p-1 justify-content-center">
+      <div class="col-8 p-3 mb-3 bg-dark card" v-for="post in posts" :key="post.id">
         <PostCard :post="post" />
       </div>
     </div>

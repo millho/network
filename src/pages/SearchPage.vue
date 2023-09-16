@@ -8,7 +8,10 @@
         </div>
       </form>
     </section>
-    <section v-if="searchResults" class="row p-1">
+    <section v-if="searchResults" class="row p-1 justify-content-center">
+      <div class=" col-8 rounded bg-primary text-center mb-3">
+        <h3>Profiles matching your search</h3>
+      </div>
       <div v-for="profile in searchResults" :key="profile.id" class="col-12 p-3 mb-3 bg-dark card">
         <ProfileCard :profile="profile" />
       </div>

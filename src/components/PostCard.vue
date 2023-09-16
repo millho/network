@@ -5,7 +5,7 @@
         <router-link :to="{ name: 'Profile', params: { profileId: post.creator.id } }">
             <div class="text-center">
                 <img class="profile-picture me-2" :src="post.creator.picture" alt="">
-                <b>{{ post.creator.name }}</b>
+                <b><i v-if="post.creator.graduated" class="mdi mdi-check-decagram-outline"></i> {{ post.creator.name }}</b>
             </div>
         </router-link>
         <p class="text-end">{{ post.createdAt }}</p>

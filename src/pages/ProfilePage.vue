@@ -1,7 +1,8 @@
 <template>
     <div class="container-fluid">
         <section class="row p-1 justify-content-center bg-dark">
-            <h1 class="text-center">{{ profile.name }}</h1>
+            <h1 class="text-center"><i v-if="profile.graduated" class="mdi mdi-check-decagram-outline"></i> {{ profile.name
+            }}</h1>
             <img class="profile-picture mb-2" :src="profile.picture" :alt="profile.name">
             <p class="px-5">{{ profile.bio }}</p>
         </section>
