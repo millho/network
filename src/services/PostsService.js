@@ -16,6 +16,14 @@ class PostsService {
         logger.log('fetched posts ✅', res.data.posts)
         AppState.posts = res.data.posts.map(post => new Post(post))
     }
+
+    async createPost(postData) {
+        const res = await api.post('/api/posts', postData)
+        const newPost = new Post(res.data)
+        logger.log('created post ✅', newPost)
+        AppState.posts.push(newPost)
+        return newPost
+    }
 }
 
 export const postsService = new PostsService
