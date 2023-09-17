@@ -16,10 +16,16 @@
         </form>
       </div>
     </div>
+    <div class="row p-1 justify-content-between">
+      <div class="col-6"><img class="img-fluid" :src="ad1.tall" alt=""></div>
+      <div class="col-6"><img class="img-fluid" :src="ad2.tall" alt=""></div>
+    </div>
     <div class="row p-1 justify-content-center">
       <div class="col-8 p-3 mb-3 bg-dark card" v-for="post in posts" :key="post.id">
         <PostCard :post="post" />
       </div>
+      <button @click="changePage(previousUrl)" class="col-6 btn btn-light" :disabled="!previousUrl">Previous</button>
+      <button @click="changePage(nextUrl)" class="col-6 btn btn-light">Next</button>
     </div>
   </section>
 </template>
@@ -29,11 +35,15 @@ import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { postsService } from '../services/PostsService';
+import { adService } from '../services/AdService';
 
 export default {
   setup() {
     const postData = ref({});
-    onMounted(() => { getPosts(); });
+    onMounted(() => {
+      getPosts();
+      getAds();
+    });
 
     async function getPosts() {
       try {
@@ -43,16 +53,36 @@ export default {
       }
     }
 
+    async function getAds() {
+      try {
+        await adService.getAds()
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
+
     return {
       postData,
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
+      nextUrl: computed(() => AppState.nextUrl),
+      previousUrl: computed(() => AppState.previousUrl),
+      ad1: computed(() => AppState.activeAd1),
+      ad2: computed(() => AppState.activeAd2),
 
       async createPost() {
         try {
           await postsService.createPost(postData.value)
           postData.value = {}
           Pop.toast('Post Created', 'success')
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
+      async changePage(url) {
+        try {
+          await postsService.changePage(url)
         } catch (error) {
           Pop.error(error)
         }

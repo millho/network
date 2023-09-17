@@ -8,6 +8,10 @@
         </div>
       </form>
     </section>
+    <section class="row p-1 justify-content-between">
+      <div class="col-6"><img class="img-fluid" :src="ad1.tall" alt=""></div>
+      <div class="col-6"><img class="img-fluid" :src="ad2.tall" alt=""></div>
+    </section>
     <section v-if="searchResults" class="row p-1 justify-content-center">
       <div class=" col-8 rounded bg-primary text-center mb-3">
         <h3>Profiles matching your search</h3>
@@ -20,18 +24,31 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop';
 import { profilesService } from '../services/ProfilesService';
+import { adService } from '../services/AdService';
 
 export default {
   setup() {
     const searchTerm = ref('')
+    onMounted(() => {
+      getAds();
+    })
 
+    async function getAds() {
+      try {
+        await adService.getAds()
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
     return {
       searchTerm,
       searchResults: computed(() => AppState.searchResults),
+      ad1: computed(() => AppState.activeAd1),
+      ad2: computed(() => AppState.activeAd2),
 
       async searchProfiles() {
         try {

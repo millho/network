@@ -6,6 +6,10 @@
             <img class="profile-picture mb-2" :src="profile.picture" :alt="profile.name">
             <p class="px-5">{{ profile.bio }}</p>
         </section>
+        <section class="row p-1 justify-content-between">
+            <div class="col-6"><img class="img-fluid" :src="ad1.tall" alt=""></div>
+            <div class="col-6"><img class="img-fluid" :src="ad2.tall" alt=""></div>
+        </section>
         <section class="cover-img row justify-content-around p-1 bg-dark">
             <div v-if="profile.github" class="col-3 text-center">
                 <a target="_blank" :href="profile.github">
@@ -47,6 +51,7 @@ import Pop from '../utils/Pop';
 import { profilesService } from '../services/ProfilesService'
 import { AppState } from '../AppState'
 import { postsService } from '../services/PostsService'
+import { adService } from '../services/AdService';
 
 export default {
     setup() {
@@ -55,6 +60,7 @@ export default {
         onMounted(() => {
             getProfileById();
             getPostsByProfile();
+            getAds();
         })
 
         async function getProfileById() {
@@ -73,10 +79,20 @@ export default {
             }
         }
 
+        async function getAds() {
+            try {
+                await adService.getAds()
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
+
         return {
             profile: computed(() => AppState.activeProfile),
             coverImg: computed(() => `url(${AppState.activeProfile?.coverImg})`),
-            posts: computed(() => AppState.posts)
+            posts: computed(() => AppState.posts),
+            ad1: computed(() => AppState.activeAd1),
+            ad2: computed(() => AppState.activeAd2),
         };
     },
 };
