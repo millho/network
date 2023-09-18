@@ -1,6 +1,7 @@
 <template>
     <div class="row justify-content-center">
-        <img class="post-picture" :src="post.img" :alt="post.creatorId">
+        <!-- <img class="post-picture" :src="post.img" :alt="post.creatorId"> -->
+        <img :src="post.imgUrl" alt="">
         <p class="fs-4 p-3 pt-0">{{ post.body }}</p>
         <button v-if="account.id" @click="likePost" class="btn bg-dark text-end"><i
                 class="mdi fs-1 mdi-heart-outline"></i></button>
@@ -34,7 +35,7 @@ export default {
             async deletePost() {
                 try {
                     if (await Pop.confirm('Are you sure you want to delete this post?')) {
-                        const postId = props.post.creator.id
+                        const postId = props.post.id
                         await postsService.deletePost(postId)
                         Pop.success('Post Deleted')
                     }
@@ -45,7 +46,7 @@ export default {
 
             async likePost() {
                 try {
-                    const id = this.account.id
+                    const id = props.post.id
                     await postsService.likePost(id)
                 } catch (error) {
                     Pop.error(error)

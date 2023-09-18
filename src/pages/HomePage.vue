@@ -82,6 +82,7 @@ export default {
 
       async changePage(url) {
         try {
+          // log what is the urls
           await postsService.changePage(url)
         } catch (error) {
           Pop.error(error)

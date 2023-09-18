@@ -10,6 +10,8 @@ class PostsService {
         const res = await api.get('/api/posts')
         logger.log('fetched posts ✅', res.data)
         AppState.posts = res.data.posts.map(post => new Post(post))
+        AppState.previousUrl = res.data.previousUrl
+        AppState.nextUrl = res.data.nextUrl
     }
 
     async getPostsByProfile(profileId) {
@@ -22,7 +24,7 @@ class PostsService {
         const res = await api.post('/api/posts', postData)
         const newPost = new Post(res.data)
         logger.log('created post ✅', newPost)
-        AppState.posts.push(newPost)
+        AppState.posts.unshift(newPost)
         return newPost
     }
 
