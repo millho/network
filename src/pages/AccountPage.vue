@@ -6,10 +6,10 @@
       <img class="profile-picture mb-2" :src="account.picture" :alt="account.name">
       <p class="px-5">{{ account.bio }}</p>
     </section>
-    <div class="row p-1 justify-content-between">
+    <section class="row p-1 justify-content-between">
       <div class="col-6"><img class="img-fluid" :src="ad1.tall" alt=""></div>
       <div class="col-6"><img class="img-fluid" :src="ad2.tall" alt=""></div>
-    </div>
+    </section>
     <section class="cover-img row justify-content-around p-1 bg-dark">
       <div v-if="account.github" class="col-3 text-center">
         <a target="_blank" :href="account.github">
